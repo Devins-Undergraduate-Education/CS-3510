@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage[inner=2.0cm,outer=2.0cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,xspace}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{mathtools}
+\usepackage[export]{adjustbox}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage{environ}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{interval}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{multirow}
+% Used for solution boxes (and aligning them)
+\usepackage{mdframed}
+\usepackage{changepage}
+\usepackage{algorithmicx}
+\usepackage{algorithm} % http://ctan.org/pkg/algorithms
+\usepackage[noend]{algpseudocode} % http://ctan.org/pkg/algorithmicx
+\newcommand{\homeworkTitle}{Problem Set 8: $\NP$-completeness II}
+\newcommand{\homeworkDueDate}{04/13/2023 11:59pm}
+\newcommand{\pitem}[1]{\item[\textbf{#1.)}]}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\F}{\mathrm{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\NP}{\mathsf{NP}}
+\renewcommand{\P}{\mathsf{P}}
+\newcommand{\pr}{\leq_p}
+\newcommand{\Mod}[1]{\ (\text{mod}\ #1)}
+\newcommand{\mmod}{\textrm{\textbf{ mod }}}
+\newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}
+}
+\newcommand{\floor}[1]{\left \lfloor #1 \right \rfloor}
+\newcommand{\ceil}[1]{\left \lceil #1 \right \rceil}
+\newcommand{\gauss}[3]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}_{#3}}
+\newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\newcounter{ProblemCounter}
+\setcounter{ProblemCounter}{1}
+\newenvironment{problem}[1][Problem]{
+\begin{trivlist}
+\item[\hskip 6pt \labelsep \labelsep {%
+\bfseries \theProblemCounter.)%
+\stepcounter{ProblemCounter}%
+}]
+}{
+\end{trivlist} \vspace{0pt}
+}
+\newenvironment{solution}{
+\vspace{2pt}
+\begin{adjustwidth}{-3pt}{15pt}
+\begin{mdframed}
+\textit{Solution:} \vspace{4pt}
+}{
+\end{mdframed}
+\end{adjustwidth}
+}
+\pagestyle{empty}
+
+\begin{document}
+\newpage
+\noindent
+\begin{center}
+\framebox{
+\vbox{\vspace{2mm}
+\hbox to 6.28in { {\bf CS 3510: Design \& Analysis of Algorithms 
+\hfill {\rm 04/05/2023}} }
+\vspace{6mm}
+\hbox to 6.28in { {\Large \hfill \homeworkTitle  \hfill} }
+\vspace{6mm}
+\hbox to 6.28in { {Prof. Abrahim Ladha \hfill 
+Due: \homeworkDueDate} }
+\vspace{2mm}}
+}
+\end{center}
+
+\textbf{\begin{itemize}
+    \item Please TYPE your solutions using Latex or any other software. Handwritten solutions \textit{won't} be accepted. 
+\end{itemize}}
+
+\begin{verbatim}
+    
+\end{verbatim}
+
+\begin{center}
+\underline{\textbf{Steps to write a reduction}}
+\end{center}
+
+To show that a problem is $\NP$-complete, you need to show that the problem is both in $\NP$  and $\NP$-hard. In a polynomial-time reduction, we have a \textit{Problem B}, and we want to show that it is $\NP$-complete. These are the steps:
+\begin{itemize}
+\item Demonstrate that \textit{problem B} is in the class $\NP$. This is a description of a procedure that verifies a candidate's solution. It needs to address the runtime. You should give a polytime verifier which takes as input a candidate problem, and a witness, and outputs true or false if the witness is a solution.
+\item Demonstrate that \textit{problem B} is at least as hard as a problem previously proved to be $\NP$-complete. Choose some $\NP$-complete $A$ and prove $A \pr B$. You need to show that \textit{problem B} is $\NP$-hard. This is done via polytime reduction from a known $\NP$-complete \textit{problem A} to the unknown \textit{problem B} $(A\rightarrow B)$ as follows:
+\begin{enumerate}
+\item Choose $A$. You will have many $\NP$-complete problems to pick from later on, and it is best to pick a similar one. 
+
+\item Give your reduction $f$ and argue that it runs in polynomial time.
+
+\item Prove that $x \in A \implies f(x) \in B$
+
+\item Prove that $x \not \in A \implies f(x) \not \in B$
+
+\item This is sufficient to show $x \in A \iff f(x) \in B$. Since $A$ was $\NP$-complete, and $A \pr B$, we can conclude that $B$ is $\NP$-hard. Note: You don't have to provide a formal proof. You can briefly explain in words both implications and why they hold. 
+\end{enumerate}
+\end{itemize}
+The second bullet point above is prove that \textit{problem B} is $\NP$-hard which combined with the first bullet point yields the $\NP$-complete proof. \
+\begin{itemize}
+\end{itemize}
+
+\newpage
+
+\textbf{\large Problem 1}\\ {(30 points)} \\\\ 
+Show that the following \texttt{Party-Invitation} problem is $\NP$-Complete. \\\\
+\textbf{Input}: You are given a set of guests $G$ of length $m$ to be invited to a party, and a set of $k$ individual family sets $F_1, F_2, ..., F_k$ such that they are non-disjoint and $F_i \subseteq G$.\\
+\textbf{Output}: A set $Q$ of guests such that not all members of any one family $F_i$ are invited to the party.\\\\
+\textit{Note}: Write the reduction in the format described on the front page of this document. \\
+
+\begin{solution}
+    [Write your answer here] \vspace{12pt} % delete this line and replace with your answer/work
+\end{solution}
+\newpage
+
+\textbf{\large Problem 2}\\ {(30 points)} \\\\ 
+Show that the following \texttt{Average-Sum} problem is $\NP$-Complete. \\\\
+\textbf{Input}: a set $S$ of natural numbers.\\
+\textbf{Output}: A subset $S' \subset S$ such that the sum of the elements in the subset $S'$ equals the average of elements in the set $S$ i.e.
+ \[ \sum_{s' \in S'} s' = \frac{1}{|S|} \sum_{s \in S} s \]
+\\\\  
+\textit{Note}: Write the reduction in the format described on the front page of this document. \\
+
+\begin{solution}
+    [Write your answer here] \vspace{12pt} % delete this line and replace with your answer/work
+\end{solution}
+\newpage
+
+\textbf{\large Problem 3}\\ {(30 points)} \\\\ 
+Show that the following \texttt{CLIQUE-\&-INDEPENDENT-SET} problem is $\NP$-Complete. \\\\
+\textbf{Input}: an undirected graph $G = (V,E)$ and an integer $k$.\\
+\textbf{Output}: Returns both a $k-$clique and $k-$independent set in $G$ i.e. a set $Q \subseteq V$ of $k$ vertices that are fully connected, AND another set $R \subseteq V$ of $k$ vertices with no edges between them. Sets $R$ and $Q$ might not be disjoint. 
+\\\\
+\textit{Note}: Write the reduction in the format described on the front page of this document. \\
+
+\begin{solution}
+    [Write your answer here] \vspace{12pt} % delete this line and replace with your answer/work
+\end{solution}
+\newpage
+
+\textbf{\large Problem 4}\\ {(30 points)} \\\\ 
+Show that the following \texttt{CYCLE-FREE} problem is $\NP$-Complete. \\\\
+\textbf{Input}: a directed graph $G = (V,E)$ and an integer $k$.\\
+\textbf{Output}: Returns a set $M \subseteq E$ of size at most $k$ such that $|M| \leq k$ and a subgraph $G' = (V, E \texttt{\textbackslash}M)$ is cycle-free. 
+\\\\
+\textit{Note}: Write the reduction in the format described on the front page of this document. \\
+
+\begin{solution}
+    [Write your answer here] \vspace{12pt} % delete this line and replace with your answer/work
+\end{solution}
+\newpage
+
+\textbf{\large Problem 5} (\textit{\large Optional, but highly recommended for the exam})\\\\ 
+\textit{Note: We won't grade this problem, but it's highly recommended that you solve the problem yourself.} \\\\ 
+Show that the following \texttt{4-coloring} problem is $\NP$-Complete.
+\\\\
+\textbf{Input}: An undirected graph $G=(V,E)$ and an integer $k = 4$. \\
+\textbf{Output}: A $4$-coloring of $G$ if exists, else output NO
+
+\\\\
+\newpage
+    
+\end{document}
+
+
+
