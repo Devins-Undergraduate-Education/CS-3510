@@ -1,19 +1,15 @@
 ﻿# Design and Analysis of Algorithms (CS 3510)
 
-Algorithms coursework archive containing written and technical assignments on algorithm design, correctness, complexity analysis, graph algorithms, dynamic programming, and reductions.
+Coursework archive for Georgia Tech CS 3510, including project, lab, homework, and assignment materials kept for undergraduate education documentation.
 
-## Included Materials
+## Source
 
-- Algorithm assignments
-- Homework solutions and writeups
-- Reference and submission artifacts
-
-## Archive Notes
-
-This repository was prepared from a local Georgia Tech coursework folder for documentation and archival purposes. Generated dependency folders, nested Git metadata, local build outputs, compressed archives, and OS metadata were excluded during preparation.
-
-Original local source:
+Original local coursework folder:
 
 ```
 C:\Users\devin\OneDrive\Documents\Georgia_Tech\CS 3510
 ```
+
+## Notes
+
+Generated dependency folders, nested Git metadata, local build outputs, archives, and OS metadata were excluded when this repository was prepared.
